@@ -47,7 +47,6 @@ function displayNewsResults (newsDataJson) {
     const newsArray = newsDataJson['Content']['result'];
 
     for (let i = 0; i < newsArray.length; i++) {
-        //console.log(newsArray[i].thumbnail);
         $('#js-news-results').append(
             `<a href='${newsArray[i].url}'><h3>${newsArray[i].title}</h3></a>
             <p>${newsArray[i].summary}</p>`
@@ -81,7 +80,7 @@ function getStockData (searchSymbol) {
     
     //create parameters object
     const params = {
-        function : 'TIME_SERIES_WEEKLY_ADJUSTED',
+        function : 'TIME_SERIES_DAILY_ADJUSTED',
         symbol : searchSymbol,
         apikey : '2ROPO489EWWVNW2W'
     }
@@ -103,11 +102,10 @@ function getStockData (searchSymbol) {
         })
         .then(responseJson => {
             $('#js-stock-results').empty();
-            
+            $('#js-error-message').empty();
             displayStockResults(responseJson);
+            $('#js-symbol-search').val('');
             return responseJson;
-            //displayStockResults(responseJson);
-            //$('.error-message').empty();
             
         })
         .catch(error => {
@@ -119,24 +117,83 @@ function getStockData (searchSymbol) {
 
 //display stock symbol
 function displayStockResults (responseJson) {
-    const metaData = 'Meta Data';
-    const symbol = '2. Symbol'
-    const stockSymbol = responseJson[metaData][symbol];
+    // const stockSymbol = responseJson[metaData][symbol];
+    // console.log(stockSymbol);
     $('#js-stock-results').append(
-        `<h2>${stockSymbol}</h2>
-        <p>52wk high : ${fiftyTwoWeekHigh(responseJson)}</p>
-        <p>52wk low : ${fiftyTwoWeekLow(responseJson)}</p>`
+        `<h2>${stockSymbol(responseJson)}</h2>
+        <table>
+            <tr>
+                <th>Open</th>
+                <td>${dailyOpen(responseJson)}</td>
+            </tr>
+            <tr>
+                <th>High</th>
+                <td>${parseFloat(dailyHigh(responseJson))}</td>
+            </tr>
+            <tr>
+                <th>Low</th>
+                <td>${dailyLow(responseJson)}</td>
+            </tr>
+            <tr>
+                <th>52wk High</th>
+                <td>${parseFloat(fiftyTwoWeekHigh(responseJson))}</td>
+            </tr>
+            <tr>
+                <th>52wk Low</th>
+                <td>${parseFloat(fiftyTwoWeekLow(responseJson))}</td>
+            </tr>
+            <tr>
+                <th>Volume</th>
+                <td>${stockVolume(responseJson)}</td>
+            </tr>
+        </table>`
     )
 }
 
-//52wk high
-function fiftyTwoWeekHigh (responseJson) {
-    const weeklyAdjusted = 'Weekly Adjusted Time Series';
-    const keysWeeklyAdjusted = Object.keys(responseJson[weeklyAdjusted]);
-    const fiftyTwoWeeks = keysWeeklyAdjusted.slice(0,52);
-    const highStock = '2. high';
+//functoin to return stock Symbol
+function stockSymbol (responseJson) {
+    const metaData = 'Meta Data';
+    const symbol = '2. Symbol'
+    console.log(responseJson);
+    return responseJson[metaData][symbol];
+}
 
-    const maxNum = 0;
+//function to return daily open
+function dailyOpen (responseJson) {
+    const dailyAdjusted = 'Time Series (Daily)';
+    const keysDailyAdjusted = Object.keys(responseJson[dailyAdjusted]);
+    const dailyStock = keysDailyAdjusted.slice(0,1);
+    const openStock = '1. open';
+    
+    return responseJson[dailyAdjusted][dailyStock][openStock];
+}
+
+//function to return daily high
+function dailyHigh (responseJson) {
+    const dailyAdjusted = 'Time Series (Daily)';
+    const keysDailyAdjusted = Object.keys(responseJson[dailyAdjusted]);
+    const dailyStock = keysDailyAdjusted.slice(0,1);
+    const highStock = '2. high';
+    
+    return responseJson[dailyAdjusted][dailyStock][highStock];
+}
+
+//function to return daily low
+function dailyLow (responseJson) {
+    const dailyAdjusted = 'Time Series (Daily)';
+    const keysDailyAdjusted = Object.keys(responseJson[dailyAdjusted]);
+    const dailyStock = keysDailyAdjusted.slice(0,1);
+    const lowStock = '3. low';
+
+    return responseJson[dailyAdjusted][dailyStock][lowStock];
+}
+
+//funtion to return 52wk high
+function fiftyTwoWeekHigh (responseJson) {
+    const weeklyAdjusted = 'Time Series (Daily)';
+    const keysWeeklyAdjusted = Object.keys(responseJson[weeklyAdjusted]);
+    const fiftyTwoWeeks = keysWeeklyAdjusted.slice(0,365);
+    const highStock = '4. close';
 
     const stockArray = [];
     for (let i = 0; i < fiftyTwoWeeks.length; i++) {
@@ -147,11 +204,11 @@ function fiftyTwoWeekHigh (responseJson) {
     return stockArray[stockArray.length - 1];
 }
 
-//52wk Low Function
+//function to return 52wk low
 function fiftyTwoWeekLow (responseJson) {
-    const weeklyAdjusted = 'Weekly Adjusted Time Series';
+    const weeklyAdjusted = 'Time Series (Daily)';
     const keysWeeklyAdjusted = Object.keys(responseJson[weeklyAdjusted]);
-    const fiftyTwoWeeks = keysWeeklyAdjusted.slice(0,52);
+    const fiftyTwoWeeks = keysWeeklyAdjusted.slice(0,365);
     const lowStock = '3. low';
 
     const stockLow = [];
@@ -161,10 +218,18 @@ function fiftyTwoWeekLow (responseJson) {
     }
     
     stockLow.sort((a,b) => a-b);
-    
-    const min = stockLow[0];
 
-    return min;
+    return stockLow[0];
+}
+
+//function to return the volume of the stock
+function stockVolume (responseJson) {
+    const dailyAdjusted = 'Time Series (Daily)';
+    const keysDailyAdjusted = Object.keys(responseJson[dailyAdjusted]);
+    const dailyStock = keysDailyAdjusted.slice(0,1);
+    const volume = '6. volume';
+
+    return responseJson[dailyAdjusted][dailyStock][volume];
 }
 
 
@@ -173,40 +238,40 @@ function fiftyTwoWeekLow (responseJson) {
 function stockForm() {
     $('form').submit( event => {
         event.preventDefault();
-        const googleSymbol = $('#js-symbol-search').val();
-        return googleSymbol;
+        const stock = $('#js-symbol-search').val();
+        google.charts.load('current', {packages: ['corechart', 'line']});
+        google.charts.setOnLoadCallback(drawLineColors(stock));
     });
+}
 
     //copy and paste google function into function
     //Stock Chart
-    google.charts.load('current', {packages: ['corechart', 'line']});
-    google.charts.setOnLoadCallback(drawLineColors);
 
-    function drawLineColors () {
-        const stockURL = `https://www.alphavantage.co/query?`;
+
+function drawLineColors (stock) {
+    const stockURL = `https://www.alphavantage.co/query?`;
     
-        //create parameters object
-        const params = {
-            function : 'TIME_SERIES_WEEKLY_ADJUSTED',
-            symbol : stockForm(),
-            apikey : '2ROPO489EWWVNW2W'
-        }
-        console.log(params);
-
+    //create parameters object
+    const params = {
+        function : 'TIME_SERIES_DAILY_ADJUSTED',
+        symbol : stock,
+        apikey : '2ROPO489EWWVNW2W'
+    }
+        //
         //connecting params object to the formatStockQueryParans function
-        const queryString = formatStockQueryParams(params);
+    const queryString = formatStockQueryParams(params);
     
         //combining the url to the query params
-        const stockQueryURL = `${stockURL}${queryString}`;
-        fetch(stockQueryURL)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                $('#js-stock-results').empty();
-                throw new Error('Symbol not Found.');
-            })
-            .then(responseJson => {
+    const stockQueryURL = `${stockURL}${queryString}`;
+    fetch(stockQueryURL)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            $('#js-stock-results').empty();
+            throw new Error('Symbol not Found.');
+        })
+        .then(responseJson => {
                 //new array for X and Y values
 
                 //collect the date  first 4 digits
@@ -214,31 +279,71 @@ function stockForm() {
 
                 // adammain
 
-                const stockData = responseJson;
-                console.log(stockData);
+            const stockData = responseJson;
+            const dailyAdjusted = 'Time Series (Daily)';
+            const weekObject = Object.keys(stockData[dailyAdjusted]);
+            const stockClose = '4. close';
+                //Current week array
+            const chartDaily = weekObject.slice(0,30);
+            const stockPriceArray = [];
 
-                const data = google.visualization.arrayToDataTable([
-                    ['Year', 'Sales', 'Expenses'],
-                    ['2004',  1000,      400],
-                    ['2005',  1170,      460],
-                    ['2006',  660,       1120],
-                    ['2007',  1030,      540]
-                ]);
-                const options = {
-                    title: 'Company Performance',
-                    curveType: 'function',
-                    legend: { position: 'bottom' }
-                };
+
+            for (let i = 0; i < chartDaily.length; i++) {
+                stockPriceArray.push(stockData[dailyAdjusted][chartDaily[i]][stockClose]);
+            }
+
+
+            for (i = 0; i < stockPriceArray.length; i++) {
+                stockPriceArray[i] = parseFloat(stockPriceArray[i]);
+            }
+            const data = google.visualization.arrayToDataTable([
+                ['Week', 'Stock'],
+                [chartDaily[30],  stockPriceArray[30]],
+                [chartDaily[29],  stockPriceArray[29]],
+                [chartDaily[28],  stockPriceArray[28]],
+                [chartDaily[27],  stockPriceArray[27]],
+                [chartDaily[26],  stockPriceArray[26]],
+                [chartDaily[25],  stockPriceArray[25]],
+                [chartDaily[24],  stockPriceArray[24]],
+                [chartDaily[23],  stockPriceArray[23]],
+                [chartDaily[22],  stockPriceArray[22]],
+                [chartDaily[21],  stockPriceArray[21]],
+                [chartDaily[20],  stockPriceArray[20]],
+                [chartDaily[19],  stockPriceArray[19]],
+                [chartDaily[18],  stockPriceArray[18]],
+                [chartDaily[17],  stockPriceArray[17]],
+                [chartDaily[16],  stockPriceArray[16]],
+                [chartDaily[15],  stockPriceArray[15]],
+                [chartDaily[14],  stockPriceArray[14]],
+                [chartDaily[13],  stockPriceArray[13]],
+                [chartDaily[12],  stockPriceArray[12]],
+                [chartDaily[11],  stockPriceArray[11]],
+                [chartDaily[10],  stockPriceArray[10]],
+                [chartDaily[9],   stockPriceArray[9]],
+                [chartDaily[8],   stockPriceArray[8]],
+                [chartDaily[7],   stockPriceArray[7]],
+                [chartDaily[6],   stockPriceArray[6]],
+                [chartDaily[5],   stockPriceArray[5]],
+                [chartDaily[4],   stockPriceArray[4]],
+                [chartDaily[3],   stockPriceArray[3]],
+                [chartDaily[2],   stockPriceArray[2]],
+                [chartDaily[1],   stockPriceArray[1]],
+                [chartDaily[0],   stockPriceArray[0]]
+            ]);
+            const options = {
+                title: `${stock}'s Stock Performance`,
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
         
-                const chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            const chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
         
-                chart.draw(data, options);
-            })
-            .catch(error => {
-                $('#js-error-message').text(`Something went wrong: ${error.message}`);
-                $('#js-stock-results').empty();
-            });
-    }
+            chart.draw(data, options);
+        })
+        .catch(error => {
+            $('#js-error-message').text(`Something went wrong: ${error.message}`);
+            $('#js-stock-results').empty();
+        });
 }
 
 function watchForm () {
@@ -252,4 +357,5 @@ function watchForm () {
     });
 }
 
+$(stockForm);
 $(watchForm);
