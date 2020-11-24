@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <header>
+            <h1>Stock Finder</h1>
+        </header>
+        <main>
+            <h2>Stock searching just got easier</h2>
+            <form>
+                <label for="symbol-search">Enter Stock Symbol</label>
+                <input type="text" name="symbol-search" id="js-symbol-search" placeholder="Example: AAPL" required>
+                <input type="submit" value="Search">
+            </form>
+
+            <p id="js-error-message" class="error-message"></p>
+            <p id="js-news-error-message" class="error-message"></p>
+            <section id="results" class="hidden">
+                <h2>Search Results:</h2>
+                <div id="curve_chart"></div>
+                <div id="js-stock-results"></div>
+                <div id="js-news-results"></div>
+            </section>
+        </main>
+    </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+</html>
