@@ -9,3 +9,54 @@
 th, td{
     border: 1px solid black;
 }
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+body {
+    margin: 0;
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #b8b8b8;
+}
+
+.container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.homepage {
+    width: 700px;
+    padding: 7px;
+    margin: 7px auto;
+    text-align: center;
+}
+
+input, label {
+    justify-content: center;
+    display: flex;
+    margin: 10px 0;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.symbol-search {
+    border-radius: 6px;
+}
+
+.button {
+    padding-top: 10px;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 90px;
+}

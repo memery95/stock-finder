@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Finder</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <header>
+    <div class="container">
+        <header class="homepage">
             <h1>Stock Finder</h1>
         </header>
-        <main>
-            <h2>Stock searching just got easier</h2>
-            <form>
-                <label for="symbol-search">Enter Stock Symbol</label>
-                <input type="text" name="symbol-search" id="js-symbol-search" placeholder="Example: AAPL" required>
-                <input type="submit" value="Search">
-            </form>
-
+        <main class="homepage">
+            <section class="search-home">
+                <h2>Stock searching just got easier</h2>
+                <form>
+                    <label for="symbol-search">Enter Stock Symbol</label>
+                    <input type="text" name="symbol-search" class="symbol-search" id="js-symbol-search" placeholder="Example: AAPL" required>
+                    <input type="submit" value="Search" class="button">
+                </form>
+            </section>
             <p id="js-error-message" class="error-message"></p>
             <p id="js-news-error-message" class="error-message"></p>
             <section id="results" class="hidden">
