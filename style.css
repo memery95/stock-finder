@@ -1,3 +1,19 @@
+/* Global CSS Rules */
+* {
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #AEADAD;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    background-color: #737373;
+}
+
 .hidden {
     display: none;
 }
@@ -6,57 +22,99 @@
     color: red;
 }
 
-th, td{
-    border: 1px solid black;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
+.flex-home-page {
+    height: 100%;
+    padding: 0;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 h1 {
     font-size: 100px;
-}
-
-body {
-    margin: 0;
-    display: table;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: #b8b8b8;
-}
-
-.container {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.homepage {
-    width: 700px;
-    padding: 7px;
-    margin: 7px auto;
     text-align: center;
 }
 
-input, label {
-    justify-content: center;
-    display: flex;
-    margin: 10px 0;
-    padding: 10px;
+ul {
+    padding: 0;
+    text-align: center;
+}
+
+li {
+    list-style-type: none;
+    padding-right: 7px;
+    padding-left: 7px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* .chart {
+    width:700px;
+} */
+
+.stock-search {
+    text-align: center;
+}
+
+.flex-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.flex-row {
+    width: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+.stock-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+    padding: 7px;
+}
+
+.chart {
     margin-right: auto;
     margin-left: auto;
 }
 
-.symbol-search {
-    border-radius: 6px;
+.search-results {
+    width: 100%;
 }
 
-.button {
-    padding-top: 10px;
-    justify-content: center;
-    padding-bottom: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 90px;
+.group {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-double {
+    flex: 2;
+}
+
+.item {
+    flex: 1;
+}
+
+@media all and (min-width: 800px) {
+    .search-results {
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    /* .group {
+        flex-direction: row;
+    } */
 }

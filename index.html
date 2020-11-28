@@ -6,34 +6,76 @@
     <title>Stock Finder</title>
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-    <div class="container">
-        <header class="homepage">
-            <h1>Stock Finder</h1>
-        </header>
-        <main class="homepage">
-            <section class="search-home">
-                <h2>Stock searching just got easier</h2>
-                <form>
-                    <label for="symbol-search">Enter Stock Symbol</label>
-                    <input type="text" name="symbol-search" class="symbol-search" id="js-symbol-search" placeholder="Example: AAPL" required>
-                    <input type="submit" value="Search" class="button">
-                </form>
-            </section>
-            <p id="js-error-message" class="error-message"></p>
-            <p id="js-news-error-message" class="error-message"></p>
-            <section id="results" class="hidden">
+    <main>
+        <div class="flex-home-page" id="js-flex-home-page">
+            <div class="flex-row">
+                <h1>Stock Finder</h1>
+                <div class="stock-search">
+                    <h2>Stock searching just got easier</h2>
+                    <form>
+                        <div class="flex-form">
+                            <label for="symbol-search">Enter Stock Symbol</label>
+                        </div>
+                        <div class="flex-form">
+                            <input type="text" name="symbol-search" class="symbol-search" id="js-symbol-search" placeholder="Example: AAPL" required>
+                        </div>
+                        <div class="flex-form">
+                            <input type="submit" value="Search" class="button">
+                        </div>       
+                    </form>
+                    <p id="js-error-message" class="error-message"></p>
+                    <p id="js-news-error-message" class="error-message"></p>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="results" class="search-results hidden">
+                
+                    <h2>Search Results:</h2>
+                    <div class="group"> 
+                    <div class="item-double">
+                        <div class="chart" id="curve_chart"></div>
+                        <div id="js-stock-results"></div>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="item">
+                        <div>
+                            <ul id="js-news-results">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div> -->
+        <div id="results" class="search-results hidden">
+            <article class="stocks">
                 <h2>Search Results:</h2>
-                <div id="curve_chart"></div>
-                <div id="js-stock-results"></div>
-                <div id="js-news-results"></div>
-            </section>
-        </main>
-    </div>
+                <div class="group">
+                    <div class="item-double">
+                        <div class="chart" id="curve_chart"></div>
+                        <div id="js-stock-results"></div>
+                    </div>
+                    <div class="item">
+                        <ul id="js-news-results"></ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+    <footer id="js-footer" class="hidden">
+        <h4>Stock Finder</h4>
+        <p>Thinkful API Hack Capstone</p>
+        <p>Made By: Marcus Emery</p>
+    </footer>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
 </html>
+
+<!-- 1. div.wrapper - for all content
+2. html element for all content
+3. div.group - display flex flex-direction: column
+4. item - flex: 1; margin: 10px; -->
