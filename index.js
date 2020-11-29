@@ -11,15 +11,11 @@ function getNewsArticles (searchSymbol) {
     const newsURL = 'https://yahoo-finance-low-latency.p.rapidapi.com/v2/finance/news?';
     const newsApiKey = '20c7cc0aefmsh61f334bc924a093p1f8f27jsn62d22eda0f66';
     
-
     const params = {
         symbols : searchSymbol
     }
     const queryString = formatNewsQueryParams(params);
     const newsQueryURL = `${newsURL}${queryString}`;
-
-   
-
     const options = {
         headers: new Headers({
             'x-rapidapi-key' : newsApiKey

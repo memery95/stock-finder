@@ -45,8 +45,8 @@ li {
     list-style-type: none;
     padding-right: 7px;
     padding-left: 7px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 p {
@@ -92,29 +92,43 @@ th, td {
 
 .search-results {
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .group {
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
 }
 
 .item-double {
     flex: 2;
+    margin: 5px;
 }
 
 .item {
     flex: 1;
+    margin: 5px;
 }
 
-@media all and (min-width: 800px) {
+.data-table {
+    margin-top: 15px;
+}
+
+@media all and (min-width: 900px) {
     .search-results {
-        width: 80%;
+        width: 90%;
         margin-right: auto;
         margin-left: auto;
     }
 
-    /* .group {
+    .group {
         flex-direction: row;
-    } */
+    }
+    .item-double {
+        width: 50% !important;
+    }
+    .item {
+        width: 50%;
+    }
 }
