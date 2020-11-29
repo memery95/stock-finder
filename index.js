@@ -281,7 +281,9 @@ function stockForm() {
 $(stockForm);
 
 $(window).resize(function() {
-    const stock = $('#js-symbol-search').val();
-    console.log(currentData);
-    getStockData(stock);
+    // console.log(currentData);
+    if (currentData != null) {
+        const stock = $('#js-symbol-search').val();
+        getStockData(stock);
+    }
 });
