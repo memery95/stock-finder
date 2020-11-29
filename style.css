@@ -8,6 +8,11 @@ body {
     background-color: #AEADAD;
 }
 
+h1 {
+    font-size: 100px;
+    text-align: center;
+}
+
 footer {
     width: 100%;
     text-align: center;
@@ -31,11 +36,6 @@ footer {
     justify-content: center;
 }
 
-h1 {
-    font-size: 100px;
-    text-align: center;
-}
-
 ul {
     padding: 0;
     text-align: center;
@@ -54,10 +54,6 @@ p {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
-/* .chart {
-    width:700px;
-} */
 
 .stock-search {
     text-align: center;
@@ -115,6 +111,7 @@ th, td {
     margin-top: 15px;
 }
 
+/* Media queries */
 @media all and (min-width: 900px) {
     .search-results {
         width: 90%;
