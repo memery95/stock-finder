@@ -12,6 +12,6 @@ After finding a company you would like to search just type it into the search ba
 
 It'll bring up any articles, data and a chart about how that company is doing!
 
-(screenshots/stock-finder-search-results.png)
+<img src="screenshots/stock-finder-search-results.png">
 
 Enjoy! (Please remember that the api has a limit of 5 calls per minute)
