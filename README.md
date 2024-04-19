@@ -14,4 +14,4 @@ It'll bring up any articles, data and a chart about how that company is doing!
 
 <img src="screenshots/stock-finder-search-results.png">
 
-Enjoy! (Please remember that the api has a limit of 5 calls per minute)
+Enjoy!
